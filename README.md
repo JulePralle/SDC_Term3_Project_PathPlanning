@@ -1,11 +1,41 @@
-# CarND-Path-Planning-Project
+
+# Behavioral Cloning Project
 Self-Driving Car Engineer Nanodegree Program
+
+---
+[//]: # (Image References)
+
+[image1]: ./writeup/intro.jpg "Image showing the simulator"
+
+
+
+### Introduction
+In this project the goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. The car's localization, sensor fusion data and a sparse map list of waypoints around the highway are provided. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 50 m/s^3.
+
+![alt text][image1]
+
+### Generate Trajectory
+To generate the trajectory I followed the suggestions in the project walkthrough video. Based on the latest car position taken from either, previously generated path or current car position the trajectory is generated. To smooth the trajectory the spline library model will be used by taking 3 points in front of the car (at 50, 100, 120 meters distance). To avoid jerks, the point coordinates for next 30 meters were generated with respect to desired velocity. The input for the trajectory generation is the lane position of the car, as well as velocity.
+
+
+### Behavior Planning
+The behavior planner decides which action should be taken in the next step. When there is a slower car in front of the ego car in the same lane, it has three options to react. 
+1. Reduce speed to aviod collision
+2. Change to the left lane to pass
+3. Change to the right lane to pass
+
+The planner decides which action to take by using a cost function. 
+
+#### Cost Function
+The cost function computes the costs of every possible trajectory in terms if speed. The behavior planner chooses the lowest cost as his next action/trajectory.
+
+### Result
+
+
    
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
 
-### Goals
-In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 50 m/s^3.
 
 #### The map of the highway is in data/highway_map.txt
 Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
