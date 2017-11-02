@@ -15,22 +15,23 @@ In this project the goal is to safely navigate around a virtual highway with oth
 ![alt text][image1]
 
 ### Generate Trajectory
-To generate the trajectory I followed the suggestions in the project walkthrough video. Based on the latest car position taken from either, previously generated path or current car position the trajectory is generated. To smooth the trajectory the spline library model will be used by taking 3 points in front of the car (at 50, 100, 120 meters distance). To avoid jerks, the point coordinates for next 30 meters were generated with respect to desired velocity. The input for the trajectory generation is the lane position of the car, as well as velocity.
+To generate the trajectory I followed the suggestions in the project walkthrough video. Based on the latest car position (taken from either, previously generated path or current car position) the trajectory is calculated. To smooth the trajectory the spline library model is used by taking 3 points in front of the car (at 50, 100, 150 meters distance). To avoid jerks, the point coordinates for next 50 meters were generated with respect to desired velocity. The input for the trajectory generation is the lane position of the car, as well as velocity.
 
 
 ### Behavior Planning
-The behavior planner decides which action should be taken in the next step. When there is a slower car in front of the ego car in the same lane, it has three options to react. 
+The behavior planner decides which action should be taken in the next step. When there is a slower car in front of the ego car in the same lane, it has the following three options to react: 
 1. Reduce speed to aviod collision
 2. Change to the left lane to pass
 3. Change to the right lane to pass
 
-The planner decides which action to take by using a cost function. 
+The planner checks if a lane change would be safe. Therefore it checks the distance from the ego car to the other cars on the lanes. If there is a gap of 35m in front of the ego car and 10m in the rear, it considers the lane change as safe. The planner also prefers to pass a slower vehicle in the left lane if possible.
+To decide which action to take next a cost function is used. 
 
 #### Cost Function
 The cost function computes the costs of every possible trajectory in terms if speed. The behavior planner chooses the lowest cost as his next action/trajectory.
 
 ### Result
-
+The implemented model is capable of driving the car more than the required 4.22 miles around the track without any incident. The car changes lanes and slowes down if a lane change would not be considered as safe.
 
    
 ### Simulator.
