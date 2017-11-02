@@ -20,7 +20,7 @@ To generate the trajectory I followed the suggestions in the project walkthrough
 
 ## Behavior Planning
 The behavior planner decides which action should be taken in the next step. When there is a slower car in front of the ego car in the same lane, it has the following three options to react: 
-1. Reduce speed to aviod collision
+1. Reduce speed to avoid collision
 2. Change to the left lane to pass
 3. Change to the right lane to pass
 
